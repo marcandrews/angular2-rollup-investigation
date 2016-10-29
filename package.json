@@ -11,9 +11,10 @@
     "clean:rollup-aot": "npm run clean:aot && rm -rf dist/rollup-aot",
     "dev:webpack": "webpack-dev-server --progress --port 8080",
     "build:webpack": "npm run clean:webpack && webpack --progress",
-    "build:webpack-aot": "clean:webpack-aot && \"node_modules/.bin/ngc\" -p tsconfig-aot.json && webpack --config webpack-aot.config.js --progress",
+    "build:webpack-aot": "npm run clean:webpack-aot && \"node_modules/.bin/ngc\" -p tsconfig-aot.json && webpack --config webpack-aot.config.js --progress",
     "build:rollup": "npm run clean:rollup && rollup -c rollup.config.js",
-    "build:rollup-aot": "npm run clean:rollup-aot && rm -rf dist/rollup-aot && \"node_modules/.bin/ngc\" -p tsconfig-aot.json && rollup -c rollup-aot.config.js"
+    "build:rollup-aot": "npm run clean:rollup-aot && rm -rf dist/rollup-aot && \"node_modules/.bin/ngc\" -p tsconfig-aot.json && rollup -c rollup-aot.config.js",
+    "build:all": ""
   },
   "author": "Marc Andrews",
   "license": "MIT",
