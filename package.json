@@ -5,6 +5,7 @@
   "main": "./src/main.ts",
   "scripts": {
     "build:webpack": "rm -rf dist/webpack && webpack --progress",
+    "build:webpack-aot": "rm -rf dist/webpack-aot && rm -rf dist/webpack-aot && \"node_modules/.bin/ngc\" -p tsconfig-aot.json && webpack --config webpack-aot.config.js --progress",
     "dev:webpack": "webpack-dev-server --progress --port 8080"
   },
   "author": "Marc Andrews",
@@ -12,11 +13,13 @@
   "dependencies": {
     "@angular/common": "~2.1.1",
     "@angular/compiler": "~2.1.1",
+    "@angular/compiler-cli": "^2.1.2",
     "@angular/core": "~2.1.1",
     "@angular/forms": "~2.1.1",
     "@angular/http": "~2.1.1",
     "@angular/platform-browser": "~2.1.1",
     "@angular/platform-browser-dynamic": "~2.1.1",
+    "@angular/platform-server": "^2.1.2",
     "@angular/router": "~3.1.1",
     "@angular/upgrade": "~2.1.1",
     "core-js": "^2.4.1",
