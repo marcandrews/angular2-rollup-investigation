@@ -9,8 +9,10 @@ import { TestUtilizedService } from './test-utilized.service';
 
 export class AppComponent {
 
+  testUtilizedService: any;
+
   constructor(
-    private testUtilizedService: TestUtilizedService
+    testUtilizedService: TestUtilizedService
   ) {}
 
 }
