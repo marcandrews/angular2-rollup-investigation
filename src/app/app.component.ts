@@ -12,6 +12,7 @@ export class AppComponent {
   testUtilizedService: any;
 
   constructor(
+    // constructing private properties breaks AoT
     testUtilizedService: TestUtilizedService
   ) {}
 
