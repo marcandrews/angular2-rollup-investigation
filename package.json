@@ -9,12 +9,23 @@
     "clean:webpack-aot": "npm run clean:aot && rm -rf dist/webpack-aot",
     "clean:rollup": "rm -rf dist/rollup",
     "clean:rollup-aot": "npm run clean:aot && rm -rf dist/rollup-aot",
+    "clean:all": "concurrently \"npm run clean:aot\" \"npm run clean:webpack\" \"npm run clean:webpack-aot\" \"npm run clean:rollup\" \"npm run clean:rollup-aot\"",
+
     "dev:webpack": "webpack-dev-server --progress --port 8080",
-    "build:webpack": "npm run clean:webpack && webpack --progress",
-    "build:webpack-aot": "npm run clean:webpack-aot && \"node_modules/.bin/ngc\" -p tsconfig-aot.json && webpack --config webpack-aot.config.js --progress",
-    "build:rollup": "npm run clean:rollup && rollup -c rollup.config.js",
-    "build:rollup-aot": "npm run clean:rollup-aot && rm -rf dist/rollup-aot && \"node_modules/.bin/ngc\" -p tsconfig-aot.json && rollup -c rollup-aot.config.js",
-    "build:all": ""
+
+    "compile-aot": "ngc -p tsconfig-aot.json",
+
+    "webpack": "webpack --progress",
+    "webpack-aot": "webpack --config webpack-aot.config.js --progress",
+    "build:webpack": "npm run clean:webpack && npm run webpack",
+    "build:webpack-aot": "npm run clean:webpack-aot && npm run compile-aot && npm run webpack-aot",
+
+    "rollup": "rollup -c rollup.config.js",
+    "rollup-aot": "rollup -c rollup-aot.config.js",
+    "build:rollup": "npm run clean:rollup && npm run rollup",
+    "build:rollup-aot": "npm run clean:rollup-aot && npm run compile-aot && npm run rollup-aot",
+
+    "build:all": "npm run clean:all && concurrently \"npm run webpack\" \"npm run rollup\" && npm run compile-aot && concurrently \"npm run webpack-aot\" \"npm run rollup-aot\""
   },
   "author": "Marc Andrews",
   "license": "MIT",
@@ -30,6 +41,7 @@
     "@angular/platform-server": "^2.1.2",
     "@angular/router": "~3.1.1",
     "@angular/upgrade": "~2.1.1",
+    "concurrently": "^3.1.0",
     "core-js": "^2.4.1",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.0-beta.12",
