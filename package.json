@@ -1,6 +1,6 @@
 {
-  "name": "angular2-rollup-investigations",
-  "version": "1.0.0",
+  "name": "angular2-rollup-investigation",
+  "version": "0.0.0",
   "description": "Angular2 Rollup Investigations",
   "main": "./src/main.ts",
   "scripts": {
