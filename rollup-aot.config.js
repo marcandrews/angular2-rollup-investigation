@@ -1,18 +1,75 @@
-import nodeResolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import uglify from 'rollup-plugin-uglify';
+/* eslint no-console: 0 */
+'use strict';
 
-export default {
-  entry: 'src/main-aot.js',
-  dest: 'dist/rollup-aot/app.js',
-  sourceMap: false,
-  format: 'iife',
-  context: 'this',
-  plugins: [
-    nodeResolve({jsnext: true, module: true}),
-    commonjs({
-      include: 'node_modules/rxjs/**',
-    }),
-    uglify()
-  ]
-}
+const fs = require('fs');
+
+const rollup = require('rollup');
+
+const nodeResolve = require('rollup-plugin-node-resolve');
+const commonjs = require('rollup-plugin-commonjs');
+const uglify = require('rollup-plugin-uglify');
+
+const src = 'src';
+const dest = 'dist/rollup-aot';
+
+Promise.all([
+  // build main/app
+  rollup.rollup({
+    entry: `${src}/main-aot.js`,
+    context: 'this',
+    plugins: [
+      nodeResolve({ jsnext: true, module: true }),
+      commonjs({
+        include: 'node_modules/rxjs/**',
+      }),
+      uglify(),
+    ],
+  }).then(app =>
+    app.write({
+      format: 'iife',
+      dest: `${dest}/app.js`,
+      sourceMap: false,
+    })
+  ),
+
+  // build polyfills
+  rollup.rollup({
+    entry: `${src}/polyfills-aot.js`,
+    context: 'this',
+    plugins: [
+      nodeResolve({ jsnext: true, module: true }),
+      commonjs(),
+      uglify(),
+    ],
+  }).then(app =>
+    app.write({
+      format: 'iife',
+      dest: `${dest}/polyfills.js`,
+      sourceMap: false,
+    })
+  ),
+
+  // create index.html
+  new Promise((resolve, reject) => {
+    fs.readFile(`${src}/index.html`, 'utf-8', (readErr, indexHtml) => {
+      if (readErr) return reject(readErr);
+      const newIndexHtml = indexHtml
+        .replace('</head>', '<script src="polyfills.js"></script></head>')
+        .replace('</body>', '<script src="app.js"></script></body>');
+      return fs.writeFile(
+        `${dest}/index.html`,
+        newIndexHtml,
+        'utf-8',
+        writeErr => {
+          if (writeErr) return reject(writeErr);
+          console.log('Created index.html');
+          return resolve();
+        }
+      );
+    });
+  }),
+]).then(() => {
+  console.log('Rollup complete');
+}).catch(err => {
+  console.error('Rollup failed with ', err);
+});
