@@ -1,7 +1,7 @@
 {
   "name": "angular2-rollup-investigation",
   "version": "0.0.0",
-  "description": "Angular2 Rollup Investigations",
+  "description": "Angular2 Rollup Investigation",
   "main": "./src/main.ts",
   "scripts": {
     "clean:aot": "rm -rf aot",
@@ -10,8 +10,6 @@
     "clean:rollup": "rm -rf dist/rollup",
     "clean:rollup-aot": "npm run clean:aot && rm -rf dist/rollup-aot",
     "clean:all": "concurrently \"npm run clean:aot\" \"npm run clean:webpack\" \"npm run clean:webpack-aot\" \"npm run clean:rollup\" \"npm run clean:rollup-aot\"",
-
-    "dev:webpack": "webpack-dev-server --progress --port 8080",
 
     "compile-aot": "ngc -p tsconfig-aot.json",
 
@@ -61,6 +59,7 @@
     "file-loader": "0.9.0",
     "html-webpack-plugin": "2.24.0",
     "lite-server": "2.2.2",
+    "mkdirp": "^0.5.1",
     "raw-loader": "0.5.1",
     "rollup": "0.36.3",
     "rollup-plugin-commonjs": "5.0.5",
