@@ -10,8 +10,8 @@ module.exports = {
   devtool: 'source-map',
 
   entry: {
-    'polyfills': './src/polyfills.ts',
-    'app': './src/main.ts',
+    'polyfills': './src/polyfills-aot.js',
+    'app': './src/main-aot.js',
   },
 
   output: {
