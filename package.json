@@ -18,7 +18,7 @@
     "build:webpack": "npm run clean:webpack && npm run webpack",
     "build:webpack-aot": "npm run clean:webpack-aot && npm run compile-aot && npm run webpack-aot",
     "serve:webpack": "webpack-dev-server --content-base dist/webpack/",
-    "serve:webpack-aot": "webpack-dev-server --content-base dist/webpack-aot/",
+    "serve:webpack-aot": "webpack-dev-server --config webpack-aot.config.js --content-base dist/webpack-aot/",
 
     "rollup": "node rollup.config.js",
     "rollup-aot": "node rollup-aot.config.js",
