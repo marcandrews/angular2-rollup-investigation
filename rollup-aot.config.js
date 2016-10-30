@@ -4,6 +4,7 @@
 const fs = require('fs');
 
 const rollup = require('rollup');
+const mkdirp = require('mkdirp');
 
 const nodeResolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
@@ -56,6 +57,12 @@ Promise.all([
       const newIndexHtml = indexHtml
         .replace('</head>', '<script src="polyfills.js"></script></head>')
         .replace('</body>', '<script src="app.js"></script></body>');
+
+      mkdirp(dest, mkdirpErr => {
+        if (mkdirpErr) return reject(mkdirpErr);
+        return true;
+      });
+
       return fs.writeFile(
         `${dest}/index.html`,
         newIndexHtml,

@@ -2,6 +2,7 @@
 'use strict';
 
 const fs = require('fs');
+const mkdirp = require('mkdirp');
 
 const rollup = require('rollup');
 
@@ -58,6 +59,12 @@ Promise.all([
       const newIndexHtml = indexHtml
         .replace('</head>', '<script src="polyfills.js"></script></head>')
         .replace('</body>', '<script src="app.js"></script></body>');
+
+      mkdirp(dest, mkdirpErr => {
+        if (mkdirpErr) return reject(mkdirpErr);
+        return true;
+      });
+
       return fs.writeFile(
         `${dest}/index.html`,
         newIndexHtml,
