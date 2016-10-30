@@ -27,7 +27,9 @@
     "serve:rollup": "lite-server -c bs-config-rollup.json",
     "serve:rollup-aot": "lite-server -c bs-config-rollup-aot.json",
 
-    "build:all": "npm run clean:all && concurrently \"npm run webpack\" \"npm run rollup\" && npm run compile-aot && concurrently \"npm run webpack-aot\" \"npm run rollup-aot\""
+    "build:all": "npm run clean:all && concurrently \"npm run webpack\" \"npm run rollup\" && npm run compile-aot && concurrently \"npm run webpack-aot\" \"npm run rollup-aot\"",
+
+    "postinstall": "npm run build:all"
   },
   "author": "Marc Andrews",
   "license": "MIT",
