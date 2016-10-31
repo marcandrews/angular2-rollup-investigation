@@ -10,25 +10,20 @@
     "clean:rollup": "rm -rf dist/rollup",
     "clean:rollup-aot": "npm run clean:aot && rm -rf dist/rollup-aot",
     "clean:all": "concurrently \"npm run clean:aot\" \"npm run clean:webpack\" \"npm run clean:webpack-aot\" \"npm run clean:rollup\" \"npm run clean:rollup-aot\"",
-
     "compile-aot": "ngc -p tsconfig-aot.json",
-
     "webpack": "webpack --progress",
     "webpack-aot": "webpack --config webpack-aot.config.js --progress",
     "build:webpack": "npm run clean:webpack && npm run webpack",
     "build:webpack-aot": "npm run clean:webpack-aot && npm run compile-aot && npm run webpack-aot",
     "serve:webpack": "webpack-dev-server --content-base dist/webpack/",
     "serve:webpack-aot": "webpack-dev-server --config webpack-aot.config.js --content-base dist/webpack-aot/",
-
     "rollup": "node rollup.config.js",
     "rollup-aot": "node rollup-aot.config.js",
     "build:rollup": "npm run clean:rollup && npm run rollup",
     "build:rollup-aot": "npm run clean:rollup-aot && npm run compile-aot && npm run rollup-aot",
     "serve:rollup": "lite-server -c bs-config-rollup.json",
     "serve:rollup-aot": "lite-server -c bs-config-rollup-aot.json",
-
     "build:all": "npm run clean:all && concurrently \"npm run webpack\" \"npm run rollup\" && npm run compile-aot && concurrently \"npm run webpack-aot\" \"npm run rollup-aot\"",
-
     "postinstall": "npm run build:all"
   },
   "author": "Marc Andrews",
@@ -40,6 +35,7 @@
     "@angular/core": "2.1.1",
     "@angular/forms": "2.1.1",
     "@angular/http": "2.1.1",
+    "@angular/material": "^2.0.0-alpha.9-3",
     "@angular/platform-browser": "2.1.1",
     "@angular/platform-browser-dynamic": "2.1.1",
     "@angular/platform-server": "2.1.1",
@@ -64,11 +60,13 @@
     "mkdirp": "^0.5.1",
     "raw-loader": "0.5.1",
     "rollup": "0.36.3",
+    "rollup-plugin-angular": "^0.4.3",
     "rollup-plugin-commonjs": "5.0.5",
     "rollup-plugin-node-resolve": "2.0.0",
     "rollup-plugin-typescript": "0.8.1",
     "rollup-plugin-uglify": "1.0.1",
     "style-loader": "0.13.1",
+    "to-string-loader": "^1.1.5",
     "typescript": "2.0.3",
     "webpack": "2.1.0-beta.25",
     "webpack-dev-server": "2.1.0-beta.9"

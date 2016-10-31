@@ -23,7 +23,17 @@ Promise.all([
       commonjs({
         include: 'node_modules/rxjs/**',
       }),
-      uglify(),
+      uglify({
+        output: {
+          comments: /@preserve|@license|@cc_on/i,
+        },
+        mangle: {
+          keep_fnames: true,
+        },
+        compress: {
+          warnings: false,
+        },
+      }),
     ],
   }).then(app =>
     app.write({

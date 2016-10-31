@@ -23,16 +23,11 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.js'],
   },
 
   module: {
     loaders: [
-      {
-        test: /\.ts$/,
-        loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
-        exclude: /node_modules/,
-      },
       {
         test: /\.html$/,
         loader: 'raw',
@@ -70,6 +65,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
+
+    new ExtractTextPlugin('[name].css'),
 
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows

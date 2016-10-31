@@ -45,15 +45,19 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: './src/app',
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style',
-          loader: 'css?sourceMap',
-        }),
+        exclude: './src/app/',
+        loaders: [
+          ExtractTextPlugin.extract({
+            fallbackLoader: 'style',
+            loader: 'css?sourceMap',
+          }),
+          'to-string',
+          'css',
+        ],
       },
       {
         test: /\.css$/,
-        include: './src/app',
+        include: './src/app/',
         loader: 'raw',
         exclude: /node_modules/,
       },
@@ -70,6 +74,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
+
+    new ExtractTextPlugin('[name].css'),
 
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
