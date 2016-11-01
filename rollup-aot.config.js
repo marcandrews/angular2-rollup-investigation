@@ -6,6 +6,7 @@ const fs = require('fs');
 const rollup = require('rollup');
 const mkdirp = require('mkdirp');
 
+const alias = require('rollup-plugin-alias');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
 const uglify = require('rollup-plugin-uglify');
@@ -20,9 +21,7 @@ Promise.all([
     context: 'this',
     plugins: [
       nodeResolve({ jsnext: true, module: true }),
-      commonjs({
-        include: 'node_modules/rxjs/**',
-      }),
+      commonjs(),
       uglify(),
     ],
   }).then(app =>

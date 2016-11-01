@@ -7,7 +7,7 @@
 // import '@angular/router';
 
 // RxJS
-// import './rxjs-extensions';
+import './rxjs-extensions';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 

@@ -6,6 +6,7 @@ const mkdirp = require('mkdirp');
 
 const rollup = require('rollup');
 
+const angular = require('rollup-plugin-angular');
 const typescript = require('rollup-plugin-typescript');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
@@ -14,18 +15,31 @@ const uglify = require('rollup-plugin-uglify');
 const src = 'src';
 const dest = 'dist/rollup';
 
+console.log(__dirname);
+
 Promise.all([
   // build main/app
   rollup.rollup({
     entry: `${src}/main.ts`,
     context: 'this',
     plugins: [
+      angular(),
       typescript(),
       nodeResolve({ jsnext: true, module: true }),
       commonjs({
-        include: 'node_modules/rxjs/**',
+        // include: 'node_modules/rxjs/**',
       }),
-      uglify(),
+      uglify({
+        output: {
+          comments: /@preserve|@license|@cc_on/i,
+        },
+        mangle: {
+          keep_fnames: true,
+        },
+        compress: {
+          warnings: false,
+        },
+      }),
     ],
   }).then(app =>
     app.write({
