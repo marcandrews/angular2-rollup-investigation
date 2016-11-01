@@ -2,9 +2,9 @@
 'use strict';
 
 const fs = require('fs');
+const mkdirp = require('mkdirp');
 
 const rollup = require('rollup');
-const mkdirp = require('mkdirp');
 
 const nodeResolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
@@ -20,9 +20,7 @@ Promise.all([
     context: 'this',
     plugins: [
       nodeResolve({ jsnext: true, module: true }),
-      commonjs({
-        include: 'node_modules/rxjs/**',
-      }),
+      commonjs(),
       uglify({
         output: {
           comments: /@preserve|@license|@cc_on/i,
