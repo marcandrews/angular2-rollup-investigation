@@ -15,8 +15,6 @@ const uglify = require('rollup-plugin-uglify');
 const src = 'src';
 const dest = 'dist/rollup';
 
-console.log(__dirname);
-
 Promise.all([
   // build main/app
   rollup.rollup({

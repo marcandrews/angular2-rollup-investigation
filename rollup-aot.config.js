@@ -2,11 +2,10 @@
 'use strict';
 
 const fs = require('fs');
-
-const rollup = require('rollup');
 const mkdirp = require('mkdirp');
 
-const alias = require('rollup-plugin-alias');
+const rollup = require('rollup');
+
 const nodeResolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
 const uglify = require('rollup-plugin-uglify');
@@ -22,7 +21,17 @@ Promise.all([
     plugins: [
       nodeResolve({ jsnext: true, module: true }),
       commonjs(),
-      uglify(),
+      uglify({
+        output: {
+          comments: /@preserve|@license|@cc_on/i,
+        },
+        mangle: {
+          keep_fnames: true,
+        },
+        compress: {
+          warnings: false,
+        },
+      }),
     ],
   }).then(app =>
     app.write({
